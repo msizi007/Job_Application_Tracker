@@ -3,8 +3,10 @@ import Footer from "../components/Footer";
 import Button from "../components/Button";
 import Image from "../components/Image";
 import LandingImage from "../assets/relaxed.jpg";
+import { useNavigate } from "react-router-dom";
 
 export default function Landing() {
+  const navigate = useNavigate();
   return (
     <div className="landing-page">
       <LandingNav />
@@ -14,7 +16,7 @@ export default function Landing() {
           <p>
             A smarter way to manage applications, follow-ups and career progress
           </p>
-          <Button text="Get Started" onclick={() => {}} />
+          <Button text="Get Started" onclick={() => navigate("/signup")} />
         </div>
         <Image
           src={LandingImage}

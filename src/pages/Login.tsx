@@ -20,8 +20,9 @@ export default function Login() {
             label="Password:"
             placeholder="Password..."
           />
+
           <p>
-            Don't have an account? <Link to="/signup">sign up</Link> instead.
+            Don't have an account? <Link to="/signup">sign up</Link> now.
           </p>
           <Button text="Login" onclick={() => {}} />
         </form>
