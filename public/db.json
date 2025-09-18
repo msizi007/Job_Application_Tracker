@@ -1,4 +1,15 @@
 {
-  "users": [],
+  "users": [
+    {
+      "id": "b22c",
+      "username": "msizi",
+      "password": "1234"
+    },
+    {
+      "id": "d351",
+      "username": "jake",
+      "password": "123"
+    }
+  ],
   "jobs": []
 }

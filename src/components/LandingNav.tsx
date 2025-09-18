@@ -1,37 +1,32 @@
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
-import { Color } from "../context/types";
+import { Color } from "../context/_css";
 export default function LandingNav() {
   const navigate = useNavigate();
   return (
-    <div style={style.navbar}>
-      <h2>Job Tracker</h2>
-      <Button
-        style={style.button}
-        text="Login"
-        onclick={() => navigate("/login")}
-      />
+    <div style={_navbar}>
+      <h2 style={_h2}>Job Tracker</h2>
+      <Button style={_button} text="Login" onclick={() => navigate("/login")} />
     </div>
   );
 }
 
-const style: { [key: string]: React.CSSProperties } = {
-  navbar: {
-    height: "8vh",
-    display: "flex",
-    padding: "0.5rem",
-    justifyContent: "space-between",
-    alignItems: "center",
-    backgroundColor: Color.Gray,
-    fontSize: "0.8rem",
-    position: "relative",
-    zIndex: 1,
-  },
-  button: {
-    border: "none",
-    padding: ".5rem 1.5rem",
-    backgroundColor: Color.Mantis,
-    color: Color.White,
-    borderRadius: ".5rem",
-  },
+/* styles */
+const _navbar: React.CSSProperties = {
+  backgroundColor: Color.Gray,
+  height: "8vh",
+  display: "flex",
+  justifyContent: "space-between",
+};
+
+const _h2: React.CSSProperties = {
+  fontSize: "1.5rem",
+  fontFamily: 'InterBold'
+};
+
+const _button: React.CSSProperties = {
+  backgroundColor: Color.Mantis,
+  color: Color.White,
+  padding: ".2rem 1rem",
+  borderRadius: ".5rem",
 };
