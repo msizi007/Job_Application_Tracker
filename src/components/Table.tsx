@@ -1,6 +1,9 @@
+import type { Job } from "../models/Job";
+import Button from "./Button";
+
 interface Props {
   head: string[];
-  data: object[];
+  data: Job[];
 }
 
 export default function Table(props: Props) {
@@ -13,14 +16,19 @@ export default function Table(props: Props) {
           ))}
         </tr>
       </thead>
-      <tbody></tbody>
-      {props.data.map((row, i) => (
-        <tr key={i}>
-          {Object.values(row).map((value, j) => (
-            <td key={j}>{value}</td>
-          ))}
-        </tr>
-      ))}
+      <tbody>
+        {props.data.map((row, i) => (
+          <tr key={i}>
+            <td>{row.title}</td>
+            <td>{row.company}</td>
+            <td>{row.location}</td>
+
+            <td>
+              <Button text="" onclick={() => {}} />
+            </td>
+          </tr>
+        ))}
+      </tbody>
     </table>
   );
 }

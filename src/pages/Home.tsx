@@ -5,7 +5,7 @@ import Table from "../components/Table";
 import { Color } from "../context/_css";
 import Modal from "../components/Modal";
 import InputField from "../components/InputField";
-import { useId, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import axios from "axios";
 import type { Job } from "../models/Job";
 
@@ -29,7 +29,14 @@ export default function Home(props: HomeProps) {
   const [company, setCompany] = useState("");
   const [role, setRole] = useState("");
   const [location, setLocation] = useState("");
+  const [jobs, setJobs] = useState<Job[] | []>([]);
   const jobId = useId();
+
+  useEffect(() => {
+    axios.get(`http://localhost:3000/users/${props.user!.id}`).then((res) => {
+      setJobs(res.data.jobs);
+    });
+  }, [jobs, props.user]);
 
   function addJob() {
     console.log("Add job...", jobTitle, company, location, role, status);
@@ -64,10 +71,7 @@ export default function Home(props: HomeProps) {
           <h2>All Jobs</h2>
           <Button style={_button} text="Add Job" onclick={onAddJob} />
         </div>
-        <Table
-          head={["Job Title", "Company", "Location", "Actions"]}
-          data={[{ title: "Microsoft", company: "", location: "" }]}
-        />
+        <Table head={["Title", "Company", "Location", "Actions"]} data={jobs} />
       </div>
       {props.modalVisible && (
         <Modal

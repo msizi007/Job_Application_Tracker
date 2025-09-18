@@ -4,7 +4,17 @@
       "id": "0045",
       "username": "Msizi",
       "password": "1234",
-      "jobs": []
+      "jobs": [
+        {
+          "id": null,
+          "title": "1",
+          "company": "1",
+          "location": "1",
+          "role": "1",
+          "status": "Applied",
+          "dateApplied": "2025-09-18"
+        }
+      ]
     }
   ]
 }

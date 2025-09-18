@@ -7,6 +7,7 @@ import { useState } from "react";
 import axios from "axios";
 import { BsPersonFill, BsLockFill } from "react-icons/bs";
 import { Color } from "../context/_css";
+import type { Job } from "../models/Job";
 
 interface LoginProps {
   setUser: React.Dispatch<
@@ -14,6 +15,7 @@ interface LoginProps {
       id: string;
       username: string;
       password: string;
+      jobs: Job[]
     } | null>
   >;
 }
