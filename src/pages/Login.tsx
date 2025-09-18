@@ -7,7 +7,18 @@ import { useState } from "react";
 import axios from "axios";
 import { BsPersonFill, BsLockFill } from "react-icons/bs";
 import { Color } from "../context/_css";
-export default function Login() {
+
+interface LoginProps {
+  setUser: React.Dispatch<
+    React.SetStateAction<{
+      id: string;
+      username: string;
+      password: string;
+    } | null>
+  >;
+}
+
+export default function Login(props: LoginProps) {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const navigate = useNavigate();
@@ -19,7 +30,7 @@ export default function Login() {
       );
 
       const user = response.data.filter(
-        (res: { username: string; password: string }) => {
+        (res: { id: string; username: string; password: string }) => {
           return (
             res.username === username.trim() && res.password === password.trim()
           );
@@ -27,7 +38,9 @@ export default function Login() {
       );
 
       if (user.length > 0) {
+        console.log("User logged in:", user[0].id);
         alert("Login successful!");
+        props.setUser(user[0]);
         navigate("/home");
       } else {
         alert("Invalid username or password!");

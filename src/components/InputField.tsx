@@ -2,19 +2,23 @@ import type { Dispatch, SetStateAction } from "react";
 import type { IconType } from "react-icons";
 
 interface Props {
-  for: string;
+  for?: string;
   type: string;
   placeholder: string;
   field: string;
   setField: Dispatch<SetStateAction<string>>;
-  icon: IconType;
+  icon?: IconType;
   style?: React.CSSProperties;
 }
 
 export default function InputField(props: Props) {
   return (
     <div style={{ ..._inputGroup, ...props.style }}>
-      <div style={_inputIcon}>{props.icon && <props.icon />}</div>
+      {props.icon ? (
+        <div style={_inputIcon}>
+          <props.icon />
+        </div>
+      ) : null}
       <input
         type={props.type}
         style={_input}

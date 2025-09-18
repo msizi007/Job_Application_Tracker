@@ -1,35 +1,10 @@
 {
   "users": [
     {
-      "id": "b22c",
-      "username": "msizi",
-      "password": "1234"
-    },
-    {
-      "id": "d351",
-      "username": "jake",
-      "password": "123"
-    },
-    {
-      "id": "a804",
-      "username": "Dlozi",
-      "password": "1234"
-    },
-    {
-      "id": "f7e8",
-      "username": "Dlozi",
-      "password": "123"
-    },
-    {
-      "id": "52cb",
-      "username": "msizi",
-      "password": "8888"
-    },
-    {
-      "id": "3737",
+      "id": "0045",
       "username": "Msizi",
-      "password": "999"
+      "password": "1234",
+      "jobs": []
     }
-  ],
-  "jobs": []
+  ]
 }
