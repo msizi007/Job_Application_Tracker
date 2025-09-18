@@ -1,7 +1,7 @@
 interface Props {
   text: string;
   onclick: () => void | Promise<void>;
-  style: React.CSSProperties;
+  style?: React.CSSProperties;
 }
 
 export default function Button(props: Props) {

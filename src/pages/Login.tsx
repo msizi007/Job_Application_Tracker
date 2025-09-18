@@ -5,6 +5,7 @@ import Image from "../components/Image";
 import LoginImage from "../assets/still.webp";
 import { useState } from "react";
 import axios from "axios";
+import { BsPersonFill, BsLockFill } from "react-icons/bs";
 export default function Login() {
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -37,6 +38,7 @@ export default function Login() {
             placeholder="Username..."
             field={username}
             setField={setUsername}
+            icon={BsPersonFill}
           />
           <InputField
             type="password"
@@ -45,6 +47,7 @@ export default function Login() {
             placeholder="Password..."
             field={password}
             setField={setPassword}
+            icon={BsLockFill}
           />
 
           <p>

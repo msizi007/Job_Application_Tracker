@@ -14,19 +14,24 @@ export default function LandingNav() {
 /* styles */
 const _navbar: React.CSSProperties = {
   backgroundColor: Color.Gray,
-  height: "8vh",
+  height: "8%",
   display: "flex",
   justifyContent: "space-between",
+  alignItems: "center",
+  padding: "1rem",
+  position: "relative",
+  zIndex: 1,
 };
 
 const _h2: React.CSSProperties = {
   fontSize: "1.5rem",
-  fontFamily: 'InterBold'
+  fontFamily: "InterBold",
 };
 
 const _button: React.CSSProperties = {
   backgroundColor: Color.Mantis,
   color: Color.White,
-  padding: ".2rem 1rem",
+  padding: "0.2rem 1rem",
   borderRadius: ".5rem",
+  height: "fit-content",
 };

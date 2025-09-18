@@ -8,9 +8,9 @@ import { useNavigate } from "react-router-dom";
 export default function Landing() {
   const navigate = useNavigate();
   return (
-    <div className="landing-page">
+    <div style={_landingPage}>
       <LandingNav />
-      <div className="body">
+      <div style={_body}>
         <div className="left">
           <h1>Simplify Your Job Hunt</h1>
           <p>
@@ -28,3 +28,15 @@ export default function Landing() {
     </div>
   );
 }
+
+const _landingPage: React.CSSProperties = {
+  width: "100%",
+  height: "100%",
+};
+
+const _body: React.CSSProperties = {
+  display: "flex",
+  justifyContent: "space-around",
+  alignItems: "center",
+  height: "84%",
+};
