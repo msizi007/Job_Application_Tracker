@@ -43,7 +43,6 @@ export default function Register() {
           <InputField
             type="text"
             for="username"
-            label="Username:"
             placeholder="Username..."
             field={username}
             setField={setUsername}
@@ -52,7 +51,6 @@ export default function Register() {
           <InputField
             type="password"
             for="password"
-            label="Password:"
             placeholder="Password..."
             field={password}
             setField={setPassword}
@@ -61,7 +59,6 @@ export default function Register() {
           <InputField
             type="password"
             for="confirm-password"
-            label="Confirm Password:"
             placeholder="Confirm Password..."
             field={confirmPassword}
             setField={setConfirmPassword}
