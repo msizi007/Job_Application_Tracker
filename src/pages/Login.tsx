@@ -13,27 +13,37 @@ export default function Login() {
   const navigate = useNavigate();
 
   async function loginUser() {
-    const res = await axios
-      .get(
+    try {
+      const response = await axios.get(
         `http://localhost:3000/users?username=${username}&password=${password}`
-      )
-      .then((response) => {
-        console.log(response.data);
-        return response.data.length > 0;
-      });
-    console.log(res);
-    if (res) {
-      navigate("/home");
-      alert("Login successful!");
-    } else {
-      alert("Invalid username or password!");
+      );
+
+      const user = response.data.filter(
+        (res: { username: string; password: string }) => {
+          return (
+            res.username === username.trim() && res.password === password.trim()
+          );
+        }
+      );
+
+      if (user.length > 0) {
+        alert("Login successful!");
+        navigate("/home");
+      } else {
+        alert("Invalid username or password!");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      alert("Something went wrong during login.");
     }
   }
+
   return (
     <div style={_loginPage}>
       <div style={_container}>
         <form action="" style={_form}>
           <InputField
+            style={_input}
             type="text"
             for="username"
             placeholder="Username..."
@@ -42,6 +52,7 @@ export default function Login() {
             icon={BsPersonFill}
           />
           <InputField
+            style={_input}
             type="password"
             for="password"
             placeholder="Password..."
@@ -53,7 +64,14 @@ export default function Login() {
           <p style={_form_p}>
             Don't have an account? <Link to="/signup">sign up</Link> now.
           </p>
-          <Button style={_form_button} text="Login" onclick={loginUser} />
+          <Button
+            style={_form_button}
+            text="Login"
+            onclick={(e) => {
+              e!.preventDefault();
+              loginUser();
+            }}
+          />
         </form>
         <Image src={LoginImage} alt="still login image" size={50} />
       </div>
@@ -93,9 +111,14 @@ const _form_p: React.CSSProperties = {
 };
 
 const _form_button: React.CSSProperties = {
-  width: "80%",
+  width: "50%",
   padding: ".5rem 1rem",
   backgroundColor: Color.Indigo,
   color: Color.White,
   fontFamily: "InterBold",
+  borderRadius: ".5rem",
+};
+
+const _input: React.CSSProperties = {
+  margin: "1rem 0",
 };

@@ -10,7 +10,7 @@ export default function Footer() {
 }
 
 const _footer: React.CSSProperties = {
-  height: "8%",
+  height: "8vh",
   display: "flex",
   justifyContent: "space-evenly",
   alignItems: "center",

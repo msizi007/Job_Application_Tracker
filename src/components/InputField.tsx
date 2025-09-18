@@ -8,17 +8,17 @@ interface Props {
   field: string;
   setField: Dispatch<SetStateAction<string>>;
   icon: IconType;
+  style?: React.CSSProperties;
 }
 
 export default function InputField(props: Props) {
   return (
-    <div style={_inputGroup}>
+    <div style={{ ..._inputGroup, ...props.style }}>
       <div style={_inputIcon}>{props.icon && <props.icon />}</div>
       <input
         type={props.type}
         style={_input}
-        id="inlineFormInputGroupUsername"
-        placeholder="Username"
+        placeholder={props.placeholder}
         value={props.field}
         onChange={(e) => props.setField(e.target.value)}
         required
@@ -28,7 +28,6 @@ export default function InputField(props: Props) {
 }
 
 const _inputGroup: React.CSSProperties = {
-  margin: "1.5rem 0",
   display: "flex",
 };
 
@@ -39,4 +38,5 @@ const _inputIcon: React.CSSProperties = {
 
 const _input: React.CSSProperties = {
   width: "100%",
+  marginLeft: "-1px",
 };

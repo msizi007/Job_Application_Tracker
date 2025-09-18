@@ -1,6 +1,6 @@
 interface Props {
   text: string;
-  onclick: () => void | Promise<void>;
+  onclick: (e?: React.MouseEvent<HTMLButtonElement>) => void | Promise<void>;
   style?: React.CSSProperties;
 }
 
