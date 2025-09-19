@@ -15,5 +15,7 @@ export default function IconButton(props: Props) {
 }
 
 const _button: React.CSSProperties = {
-  border: "none",
+  border: "1px solid lightgray",
+  margin: "0 .5rem",
+  padding: ".8rem",
 };

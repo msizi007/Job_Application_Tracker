@@ -6,6 +6,7 @@ import Register from "./pages/Register";
 import Home from "./pages/Home";
 import { useState } from "react";
 import type { User } from "./models/User";
+import NotFound404 from "./pages/404";
 
 function App() {
   const [user, setUser] = useState<User | null>(null);
@@ -27,6 +28,7 @@ function App() {
             />
           }
         />
+        <Route path="*" element={<NotFound404 />} />
       </Routes>
     </>
   );

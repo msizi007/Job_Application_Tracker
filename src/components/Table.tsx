@@ -1,5 +1,7 @@
+import { BsEyeFill, BsPenFill, BsRecycle } from "react-icons/bs";
 import type { Job } from "../models/Job";
-import Button from "./Button";
+
+import IconButton from "./IconButton";
 
 interface Props {
   head: string[];
@@ -23,8 +25,17 @@ export default function Table(props: Props) {
             <td>{row.company}</td>
             <td>{row.location}</td>
 
-            <td>
-              <Button text="" onclick={() => {}} />
+            <td
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                border: "1px solid lightgray",
+              }}
+            >
+              <IconButton icon={BsEyeFill} onclick={() => {}} />
+              <IconButton icon={BsPenFill} onclick={() => {}} />
+              <IconButton icon={BsRecycle} onclick={() => {}} />
             </td>
           </tr>
         ))}
@@ -37,6 +48,7 @@ const _table: React.CSSProperties = {
   marginTop: "2rem",
   width: "100%",
   borderCollapse: "collapse",
+  border: "1px solid lightgray",
 };
 
 const _th: React.CSSProperties = {
