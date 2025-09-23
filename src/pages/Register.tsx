@@ -23,7 +23,7 @@ export default function Register() {
         password: password,
       };
       axios
-        .post("http://localhost:3000/users", user)
+        .post("https://msizi007.pythonanywhere.com/users", user)
         .then(() => {
           navigate("/login");
           alert("User registered successfully!");

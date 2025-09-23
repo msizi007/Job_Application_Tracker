@@ -42,7 +42,7 @@ export default function Table(props: Props) {
 
   function removeJob(id: string) {
     axios
-      .delete(`http://localhost:3000/jobs/${id}`)
+      .delete(`https://msizi007.pythonanywhere.com/jobs/${id}`)
       .then(() => {
         alert("Job removed sucessfully.");
       })
@@ -74,7 +74,7 @@ export default function Table(props: Props) {
     }
 
     axios
-      .put(`http://localhost:3000/jobs/${id}`, newJob)
+      .put(`https://msizi007.pythonanywhere.com/jobs/${id}`, newJob)
       .then(() => {
         alert("Job updated sucessfully.");
       })

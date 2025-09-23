@@ -13,7 +13,7 @@ export default function JobPage() {
     async function fetchJob() {
       try {
         const response = await axios.get<Job>(
-          `http://localhost:3000/jobs/${id}`
+          `https://msizi007.pythonanywhere.com/jobs/${id}`
         );
         setJob(response.data);
       } catch (error) {

@@ -23,7 +23,7 @@ export default function Login(props: LoginProps) {
   async function loginUser() {
     try {
       const response = await axios.get(
-        `http://localhost:3000/users?username=${username}&password=${password}`
+        `https://msizi007.pythonanywhere.com/users?username=${username}&password=${password}`
       );
 
       const user = response.data.filter(

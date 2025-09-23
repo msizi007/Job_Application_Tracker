@@ -33,7 +33,7 @@ export default function Home(props: HomeProps) {
   const [filteredJobs, setFilteredJobs] = useState<Job[]>([]);
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/jobs`).then((res) => {
+    axios.get(`https://msizi007.pythonanywhere.com/jobs`).then((res) => {
       if (getUser() !== props.user) {
         props.setUser(getUser());
       }
@@ -66,9 +66,9 @@ export default function Home(props: HomeProps) {
       alert("Please fill in all fields.");
       return;
     }
-    
+
     axios
-      .post(`http://localhost:3000/jobs`, job)
+      .post(`https://msizi007.pythonanywhere.com/jobs`, job)
       .then(() => {
         alert("Job added sucessfully.");
       })
