@@ -1,14 +1,15 @@
 import Button from "../components/Button";
 import { Link, useNavigate } from "react-router-dom";
-import InputField from "../components/InputField";
+import InputField from "../components/InputField/InputField";
 import Image from "../components/Image";
 import LoginImage from "../assets/still.webp";
 import { useState } from "react";
 import axios from "axios";
 import { BsPersonFill, BsLockFill } from "react-icons/bs";
-import { Color } from "../context/_css";
 import type { User } from "../models/User";
 import { setUser } from "../utils/auth";
+import "./pages.css";
+import { Color } from "../context/_css";
 
 interface LoginProps {
   setUser: React.Dispatch<React.SetStateAction<User>>;
@@ -49,11 +50,10 @@ export default function Login(props: LoginProps) {
   }
 
   return (
-    <div style={_loginPage}>
-      <div style={_container}>
-        <form action="" style={_form}>
+    <div className="login-page">
+      <div className="container">
+        <form action="">
           <InputField
-            style={_input}
             type="text"
             for="username"
             placeholder="Username..."
@@ -62,7 +62,6 @@ export default function Login(props: LoginProps) {
             icon={BsPersonFill}
           />
           <InputField
-            style={_input}
             type="password"
             for="password"
             placeholder="Password..."
@@ -71,11 +70,13 @@ export default function Login(props: LoginProps) {
             icon={BsLockFill}
           />
 
-          <p style={_form_p}>
+          <p>
             Don't have an account? <Link to="/signup">sign up</Link> now.
           </p>
           <Button
-            style={_form_button}
+            width={50}
+            color="white"
+            bg={Color.Mantis}
             text="Login"
             onclick={(e) => {
               e!.preventDefault();
@@ -88,47 +89,3 @@ export default function Login(props: LoginProps) {
     </div>
   );
 }
-
-const _loginPage: React.CSSProperties = {
-  width: "100%",
-  height: "100vh",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-};
-
-const _container: React.CSSProperties = {
-  width: "50%",
-  height: "50%",
-  display: "flex",
-  padding: "1rem",
-};
-
-const _form: React.CSSProperties = {
-  width: "50%",
-  border: "2px solid black",
-  padding: "1rem",
-  borderRadius: "2rem",
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  alignItems: "center",
-};
-
-const _form_p: React.CSSProperties = {
-  margin: "1rem 0",
-  fontSize: ".8rem",
-};
-
-const _form_button: React.CSSProperties = {
-  width: "50%",
-  padding: ".5rem 1rem",
-  backgroundColor: Color.Indigo,
-  color: Color.White,
-  fontFamily: "InterBold",
-  borderRadius: ".5rem",
-};
-
-const _input: React.CSSProperties = {
-  margin: "1rem 0",
-};

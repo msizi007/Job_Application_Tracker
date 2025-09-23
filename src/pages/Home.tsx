@@ -1,10 +1,10 @@
 import Button from "../components/Button";
-import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
-import Table from "../components/Table";
+import Footer from "../components/Footer/Footer";
+import Navbar from "../components/Navbar/Navbar";
+import Table from "../components/Table/Table";
 import { Color } from "../context/_css";
 import Modal from "../components/Modal";
-import InputField from "../components/InputField";
+import InputField from "../components/InputField/InputField";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import type { Job } from "../models/Job";
@@ -61,6 +61,12 @@ export default function Home(props: HomeProps) {
       dateApplied: new Date().toISOString().split("T")[0],
       userId: props.user!.id,
     };
+
+    if (jobTitle === "" || company === "" || role === "" || location === "") {
+      alert("Please fill in all fields.");
+      return;
+    }
+    
     axios
       .post(`http://localhost:3000/jobs`, job)
       .then(() => {
@@ -72,13 +78,19 @@ export default function Home(props: HomeProps) {
   }
 
   return (
-    <div style={_homePage}>
+    <div className="home-page">
       <Navbar />
-      <div style={_body}>
-        <div style={_row}>
+      <div className="body">
+        <div className="row">
           <h2>All Jobs</h2>
-          <Button style={_button} text="Add Job" onclick={onAddJob} />
+          <Button
+            color="white"
+            bg={Color.Mantis}
+            text="Add Job"
+            onclick={onAddJob}
+          />
         </div>
+        <hr />
         <Table
           head={["Title", "Company", "Location", "Actions"]}
           data={filteredJobs}
@@ -90,7 +102,6 @@ export default function Home(props: HomeProps) {
           content={
             <div>
               <InputField
-                style={{ marginBottom: "1rem" }}
                 for="jobTitle"
                 type="text"
                 placeholder="Job Title"
@@ -98,28 +109,26 @@ export default function Home(props: HomeProps) {
                 setField={setJobTitle}
               />
               <InputField
-                style={{ marginBottom: "1rem" }}
                 type="text"
                 placeholder="Company"
                 field={company}
                 setField={setCompany}
               />
               <InputField
-                style={{ marginBottom: "1rem" }}
                 type="text"
                 placeholder="Location"
                 field={location}
                 setField={setLocation}
               />
               <InputField
-                style={{ marginBottom: "1rem" }}
                 type="text"
                 placeholder="Role"
                 field={role}
                 setField={setRole}
               />
               <Button
-                style={_button}
+                color="white"
+                bg={Color.Mantis}
                 text="Submit"
                 onclick={(e) => {
                   e!.preventDefault();
@@ -136,29 +145,3 @@ export default function Home(props: HomeProps) {
     </div>
   );
 }
-
-const _homePage: React.CSSProperties = {
-  width: "100%",
-  height: "100%",
-  display: "flex",
-  flexDirection: "column",
-};
-const _body: React.CSSProperties = {
-  flex: 1,
-};
-
-const _row: React.CSSProperties = {
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
-  padding: "1rem 2rem",
-  borderBottom: "1px solid lightgray",
-};
-
-const _button: React.CSSProperties = {
-  backgroundColor: Color.Mantis,
-  color: "white",
-  padding: "0.5rem 1.5rem",
-  borderRadius: ".5rem",
-  fontSize: "1rem",
-};

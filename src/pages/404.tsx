@@ -1,6 +1,6 @@
-import Footer from "../components/Footer";
+import Footer from "../components/Footer/Footer";
 import Image from "../components/Image";
-import Navbar from "../components/Navbar";
+import Navbar from "../components/Navbar/Navbar";
 import notFoundImg from "../assets/404.jpg";
 
 export default function NotFound404() {

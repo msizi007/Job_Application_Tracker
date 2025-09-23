@@ -5,7 +5,11 @@ export default function Avatar() {
     <div className="">
       <BsPersonFill
         size={60}
-        style={{ backgroundColor: "gray", padding: ".5rem" }}
+        style={{
+          backgroundColor: "white",
+          padding: ".5rem",
+          borderRadius: "50%",
+        }}
       />
     </div>
   );

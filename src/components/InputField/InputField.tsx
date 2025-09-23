@@ -1,5 +1,6 @@
 import type { Dispatch, SetStateAction } from "react";
 import type { IconType } from "react-icons";
+import styles from "./inputfield.module.css";
 
 interface Props {
   for?: string;
@@ -8,20 +9,19 @@ interface Props {
   field: string;
   setField: Dispatch<SetStateAction<string>>;
   icon?: IconType;
-  style?: React.CSSProperties;
 }
 
 export default function InputField(props: Props) {
   return (
-    <div style={{ ..._inputGroup, ...props.style }}>
+    <div className={styles.inputGroup}>
       {props.icon ? (
-        <div style={_inputIcon}>
+        <div className={styles.inputIcon}>
           <props.icon />
         </div>
       ) : null}
       <input
         type={props.type}
-        style={_input}
+        className={styles.input}
         placeholder={props.placeholder}
         value={props.field}
         onChange={(e) => props.setField(e.target.value)}
@@ -30,17 +30,3 @@ export default function InputField(props: Props) {
     </div>
   );
 }
-
-const _inputGroup: React.CSSProperties = {
-  display: "flex",
-};
-
-const _inputIcon: React.CSSProperties = {
-  padding: ".5rem",
-  border: "1px solid black",
-};
-
-const _input: React.CSSProperties = {
-  width: "100%",
-  marginLeft: "-1px",
-};

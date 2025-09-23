@@ -3,12 +3,14 @@ interface Props {
   onclick: (e?: React.MouseEvent<HTMLButtonElement>) => void | Promise<void>;
   color: string;
   bg: string;
+  width?: number
 }
 
 export default function Button(props: Props) {
   return (
     <button
       style={{
+        width: props.width ? `${props.width}%` : "",
         color: props.color,
         backgroundColor: props.bg,
         padding: "1rem",

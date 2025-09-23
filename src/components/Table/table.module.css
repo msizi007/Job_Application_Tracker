@@ -1,0 +1,10 @@
+.table {
+  margin-top: 2rem;
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid lightgray;
+  border-collapse: collapse;
+}
+.th {
+  border: 1px solid green;
+}

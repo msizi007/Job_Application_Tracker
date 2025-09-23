@@ -11,7 +11,6 @@ export default function LandingNav() {
       <Button
         color={Color.White}
         bg={Color.Mantis}
-        padding="1rem"
         text="Login"
         onclick={() => navigate("/login")}
       />

@@ -1,15 +1,16 @@
 import { BsEyeFill, BsPenFill } from "react-icons/bs";
-import type { Job } from "../models/Job";
+import type { Job } from "../../models/Job";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 
-import IconButton from "./IconButton";
+import IconButton from "../IconButton";
 import axios from "axios";
-import Modal from "./Modal";
-import Button from "./Button";
+import Modal from "../Modal";
+import Button from "../Button";
 import { useState } from "react";
-import InputField from "./InputField";
+import InputField from "../InputField/InputField";
 import { useNavigate } from "react-router-dom";
-
+import styles from "./table.module.css";
+import { Color } from "../../context/_css";
 interface Props {
   head: string[];
   data: Job[];
@@ -62,6 +63,16 @@ export default function Table(props: Props) {
       userId: selectedJob!.userId,
     };
 
+    if (
+      newJob.title === "" ||
+      newJob.company === "" ||
+      newJob.role === "" ||
+      newJob.location === ""
+    ) {
+      alert("Please fill in all fields.");
+      return;
+    }
+
     axios
       .put(`http://localhost:3000/jobs/${id}`, newJob)
       .then(() => {
@@ -72,8 +83,8 @@ export default function Table(props: Props) {
       });
   }
   return (
-    <table style={_table}>
-      <thead style={_th}>
+    <table className={styles.table}>
+      <thead className={styles.th}>
         <tr>
           {props.head.map((data, i) => (
             <th key={i}>{data}</th>
@@ -82,7 +93,7 @@ export default function Table(props: Props) {
       </thead>
       <tbody>
         {props.data.map((row, i) => (
-          <tr key={i}>
+          <tr key={i} style={{ borderRadius: "1rem" }}>
             <td>{row.title}</td>
             <td>{row.company}</td>
             <td>{row.location}</td>
@@ -92,22 +103,24 @@ export default function Table(props: Props) {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                border: "1px solid lightgray",
               }}
             >
               <IconButton
+                bg={Color.Gray}
                 icon={BsEyeFill}
                 onclick={() => {
                   navigate(`/jobs/${row.id}`);
                 }}
               />
               <IconButton
+                bg={Color.Mantis}
                 icon={BsPenFill}
                 onclick={() => {
                   onUpdateJob(row);
                 }}
               />
               <IconButton
+                bg={Color.Indigo}
                 icon={RiDeleteBin5Fill}
                 onclick={() => {
                   onRemoveJob(row);
@@ -123,13 +136,20 @@ export default function Table(props: Props) {
           content={
             <div>
               <Button
+                color="white"
+                bg={Color.Indigo}
                 text="Yes"
                 onclick={() => {
                   removeJob(selectedJob!.id);
                   setShowDeleteModal(false);
                 }}
               />
-              <Button text="No" onclick={() => setShowDeleteModal(false)} />
+              <Button
+                color="white"
+                bg="gray"
+                text="No"
+                onclick={() => setShowDeleteModal(false)}
+              />
             </div>
           }
           onClose={() => setShowDeleteModal(false)}
@@ -165,6 +185,8 @@ export default function Table(props: Props) {
                 setField={setLocation}
               />
               <Button
+                color="white"
+                bg={Color.Mantis}
                 text="Update"
                 onclick={(e) => {
                   e?.preventDefault();
@@ -180,16 +202,3 @@ export default function Table(props: Props) {
     </table>
   );
 }
-
-const _table: React.CSSProperties = {
-  marginTop: "2rem",
-  width: "100%",
-  borderCollapse: "collapse",
-  border: "1px solid lightgray",
-};
-
-const _th: React.CSSProperties = {
-  textAlign: "center",
-  borderBottom: "2px solid lightgray",
-  padding: "1rem 2rem",
-};
