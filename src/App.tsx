@@ -8,6 +8,7 @@ import { useState } from "react";
 import type { User } from "./models/User";
 import NotFound404 from "./pages/404";
 import type { Job } from "./models/Job";
+import JobPage from "./pages/Job";
 
 function App() {
   const [user, setUser] = useState<User>({
@@ -37,6 +38,7 @@ function App() {
             />
           }
         />
+        <Route path="/jobs/:id" element={<JobPage />} />
         <Route path="*" element={<NotFound404 />} />
       </Routes>
     </>

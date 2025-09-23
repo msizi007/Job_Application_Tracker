@@ -8,6 +8,7 @@ import Modal from "./Modal";
 import Button from "./Button";
 import { useState } from "react";
 import InputField from "./InputField";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   head: string[];
@@ -22,6 +23,7 @@ export default function Table(props: Props) {
   const [company, setCompany] = useState("");
   const [role, setRole] = useState("");
   const [location, setLocation] = useState("");
+  const navigate = useNavigate();
 
   function onRemoveJob(job: Job) {
     setShowDeleteModal(true);
@@ -31,6 +33,10 @@ export default function Table(props: Props) {
   function onUpdateJob(job: Job) {
     setShowUpdateModal(true);
     setSelectedJob(job);
+    setTitle(job.title);
+    setCompany(job.company);
+    setRole(job.role);
+    setLocation(job.location);
   }
 
   function removeJob(id: string) {
@@ -46,14 +52,16 @@ export default function Table(props: Props) {
 
   function updateJob(id: string) {
     const newJob = {
-      title: selectedJob!.title,
-      company: selectedJob!.company,
-      location: selectedJob!.location,
-      role: selectedJob!.role,
+      id: id,
+      title: title,
+      company: company,
+      location: location,
+      role: role,
       status: selectedJob!.status,
       dateApplied: selectedJob!.dateApplied,
       userId: selectedJob!.userId,
     };
+
     axios
       .put(`http://localhost:3000/jobs/${id}`, newJob)
       .then(() => {
@@ -87,7 +95,12 @@ export default function Table(props: Props) {
                 border: "1px solid lightgray",
               }}
             >
-              <IconButton icon={BsEyeFill} onclick={() => {}} />
+              <IconButton
+                icon={BsEyeFill}
+                onclick={() => {
+                  navigate(`/jobs/${row.id}`);
+                }}
+              />
               <IconButton
                 icon={BsPenFill}
                 onclick={() => {
@@ -153,14 +166,15 @@ export default function Table(props: Props) {
               />
               <Button
                 text="Update"
-                onclick={() => {
+                onclick={(e) => {
+                  e?.preventDefault();
                   updateJob(selectedJob!.id);
                   setShowUpdateModal(false);
                 }}
               />
             </div>
           }
-          onClose={() => setShowDeleteModal(false)}
+          onClose={() => setShowUpdateModal(false)}
         />
       )}
     </table>

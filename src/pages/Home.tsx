@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import type { Job } from "../models/Job";
 import type { User } from "../models/User";
+import { getUser } from "../utils/auth";
 
 interface HomeProps {
   user: User;
@@ -33,16 +34,19 @@ export default function Home(props: HomeProps) {
 
   useEffect(() => {
     axios.get(`http://localhost:3000/jobs`).then((res) => {
+      if (getUser() !== props.user) {
+        props.setUser(getUser());
+      }
       if (res.data != jobs) {
         setJobs(res.data);
         setFilteredJobs(
-          res.data.filter((job) => {
+          res.data.filter((job: Job) => {
             return job.userId === props.user!.id;
           })
         );
       }
     });
-  }, [jobs, props.user]);
+  }, [jobs, props.user, props]);
 
   function addJob() {
     console.log(props.user);

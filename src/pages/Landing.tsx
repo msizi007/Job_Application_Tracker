@@ -1,4 +1,4 @@
-import LandingNav from "../components/LandingNav";
+import LandingNav from "../components/LandingNav/LandingNav";
 import Footer from "../components/Footer";
 import Button from "../components/Button";
 import Image from "../components/Image";

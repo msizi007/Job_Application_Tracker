@@ -1,10 +1,26 @@
 @font-face {
-  font-family: InterBold;
-  src: url("./assets/fonts/Inter_18pt-ExtraBold.ttf");
+  font-family: Inter;
+  src: url("./assets/fonts/Inter_18pt-Thin.ttf");
 }
 @font-face {
-  font-family: InterRegular;
+  font-family: Inter100;
   src: url("./assets/fonts/Inter_18pt-Regular.ttf");
+}
+@font-face {
+  font-family: Inter200;
+  src: url("./assets/fonts/Inter_18pt-Medium.ttf");
+}
+@font-face {
+  font-family: Inter300;
+  src: url("./assets/fonts/Inter_18pt-SemiBold.ttf");
+}
+@font-face {
+  font-family: Inter500;
+  src: url("./assets/fonts/Inter_18pt-Bold.ttf");
+}
+@font-face {
+  font-family: Inter700;
+  src: url("./assets/fonts/Inter_18pt-ExtraBold.ttf");
 }
 
 :root {
@@ -18,7 +34,7 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: InterRegular;
+  font-family: Inter300;
 }
 html,
 body,

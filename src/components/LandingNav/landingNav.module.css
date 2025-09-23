@@ -1,0 +1,15 @@
+.navbar {
+  background-color: var(--color-gray);
+  height: 8%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-family: Inter500;
+}

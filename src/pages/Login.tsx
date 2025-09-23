@@ -8,6 +8,7 @@ import axios from "axios";
 import { BsPersonFill, BsLockFill } from "react-icons/bs";
 import { Color } from "../context/_css";
 import type { User } from "../models/User";
+import { setUser } from "../utils/auth";
 
 interface LoginProps {
   setUser: React.Dispatch<React.SetStateAction<User>>;
@@ -36,6 +37,7 @@ export default function Login(props: LoginProps) {
         console.log("User logged in:", user[0].id);
         alert("Login successful!");
         props.setUser(user[0]);
+        setUser(user[0]);
         navigate("/home");
       } else {
         alert("Invalid username or password!");
