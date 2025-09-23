@@ -22,13 +22,7 @@ git clone https://github.com/msizi007/Job_Application_Tracker.git
 npm install
 ```
 
-3. Open another terminal inside the project and run the json-server backend
-
-```bash
-npx json-server public/db.json --watch
-```
-
-4. On another terminal run react
+3. Open the terminal and run the react app
 
 ```bash
 npm run dev
