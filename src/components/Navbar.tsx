@@ -1,11 +1,15 @@
 import { Color } from "../context/_css";
+import Avatar from "./Avatar";
 import Searchbar from "./Searchbar";
 
 export default function Navbar() {
   return (
     <div style={_navbar}>
       <h1 style={_h1}>Job Tracker</h1>
-      <Searchbar />
+      <div>
+        <Searchbar />
+        <Avatar />
+      </div>
     </div>
   );
 }

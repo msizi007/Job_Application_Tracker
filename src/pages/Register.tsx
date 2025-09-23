@@ -22,7 +22,6 @@ export default function Register() {
       const user = {
         username: username,
         password: password,
-        jobs: [],
       };
       axios
         .post("http://localhost:3000/users", user)

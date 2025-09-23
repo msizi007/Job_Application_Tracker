@@ -1,20 +1,61 @@
 {
   "users": [
     {
-      "id": "0045",
-      "username": "Msizi",
-      "password": "1234",
-      "jobs": [
-        {
-          "id": null,
-          "title": "1",
-          "company": "1",
-          "location": "1",
-          "role": "1",
-          "status": "Applied",
-          "dateApplied": "2025-09-18"
-        }
-      ]
+      "id": "6920",
+      "username": "msizi",
+      "password": "123"
+    },
+    {
+      "id": "32f1",
+      "username": "sabelo",
+      "password": "1234"
+    },
+    {
+      "id": "2d07",
+      "username": "msizi",
+      "password": "111"
+    }
+  ],
+  "jobs": [
+    {
+      "id": "0f91",
+      "title": "4",
+      "company": "4",
+      "location": "4",
+      "role": "4",
+      "status": "Applied",
+      "dateApplied": "2025-09-19",
+      "userId": "32f1"
+    },
+    {
+      "id": "a2fe",
+      "title": "8",
+      "company": "8",
+      "location": "8",
+      "role": "8",
+      "status": "Applied",
+      "dateApplied": "2025-09-19",
+      "userId": "32f1"
+    },
+    {
+      "title": "1",
+      "company": "1",
+      "location": "1",
+      "role": "1",
+      "status": "Applied",
+      "dateApplied": "2025-09-19",
+      "userId": "6920",
+      "id": "3030"
+    },
+    {
+      "id": "4652",
+      "title": "1",
+      "company": "1",
+      "location": "1",
+      "role": "1",
+      "status": "Applied",
+      "dateApplied": "2025-09-23",
+      "userId": "2d07"
     }
   ]
 }

@@ -7,17 +7,10 @@ import { useState } from "react";
 import axios from "axios";
 import { BsPersonFill, BsLockFill } from "react-icons/bs";
 import { Color } from "../context/_css";
-import type { Job } from "../models/Job";
+import type { User } from "../models/User";
 
 interface LoginProps {
-  setUser: React.Dispatch<
-    React.SetStateAction<{
-      id: string;
-      username: string;
-      password: string;
-      jobs: Job[]
-    } | null>
-  >;
+  setUser: React.Dispatch<React.SetStateAction<User>>;
 }
 
 export default function Login(props: LoginProps) {

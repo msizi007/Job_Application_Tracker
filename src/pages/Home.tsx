@@ -5,17 +5,16 @@ import Table from "../components/Table";
 import { Color } from "../context/_css";
 import Modal from "../components/Modal";
 import InputField from "../components/InputField";
-import { useEffect, useId, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import type { Job } from "../models/Job";
+import type { User } from "../models/User";
 
 interface HomeProps {
-  user: {
-    id: string;
-    username: string;
-    password: string;
-    jobs: Job[];
-  } | null;
+  user: User;
+  setUser: React.Dispatch<React.SetStateAction<User>>;
+  jobs: Job[];
+  setJobs: React.Dispatch<React.SetStateAction<Job[]>>;
   modalVisible: boolean;
   setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -30,31 +29,36 @@ export default function Home(props: HomeProps) {
   const [role, setRole] = useState("");
   const [location, setLocation] = useState("");
   const [jobs, setJobs] = useState<Job[] | []>([]);
-  const jobId = useId();
+  const [filteredJobs, setFilteredJobs] = useState<Job[]>([]);
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/users/${props.user!.id}`).then((res) => {
-      setJobs(res.data.jobs);
+    axios.get(`http://localhost:3000/jobs`).then((res) => {
+      if (res.data != jobs) {
+        setJobs(res.data);
+        setFilteredJobs(
+          res.data.filter((job) => {
+            return job.userId === props.user!.id;
+          })
+        );
+      }
     });
   }, [jobs, props.user]);
 
   function addJob() {
-    console.log("Add job...", jobTitle, company, location, role, status);
+    console.log(props.user);
     props.setModalVisible(false);
 
-    const jobs = props.user!.jobs;
-    const job: Job = {
-      id: Number(jobId),
+    const job = {
       title: jobTitle,
       company: company,
       location: location,
       role: role,
       status: "Applied",
       dateApplied: new Date().toISOString().split("T")[0],
+      userId: props.user!.id,
     };
-    jobs.push(job);
     axios
-      .patch(`http://localhost:3000/users/${props.user!.id}`, { jobs: jobs })
+      .post(`http://localhost:3000/jobs`, job)
       .then(() => {
         alert("Job added sucessfully.");
       })
@@ -71,7 +75,10 @@ export default function Home(props: HomeProps) {
           <h2>All Jobs</h2>
           <Button style={_button} text="Add Job" onclick={onAddJob} />
         </div>
-        <Table head={["Title", "Company", "Location", "Actions"]} data={jobs} />
+        <Table
+          head={["Title", "Company", "Location", "Actions"]}
+          data={filteredJobs}
+        />
       </div>
       {props.modalVisible && (
         <Modal
