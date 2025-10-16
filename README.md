@@ -3,6 +3,7 @@
 ![Job_Application_Tracker](https://socialify.git.ci/msizi007/Job_Application_Tracker/image?language=1&owner=1&name=1&stargazers=1&theme=Light)
 
 - This is an application that allows users to add jobs they have applied for and keeep track of them.
+- Now publicly avaiable at: https://application-tracker-xvs0.onrender.com/
 
 #### Backend
 
