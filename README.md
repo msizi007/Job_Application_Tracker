@@ -7,6 +7,8 @@
 #### Backend
 
 - The app is hosted at https://msizi007.pythonanywhere.com for more info. visit pythonanywhere.com
+- Users: https://msizi007.pythonanywhere.com/users
+- Jobs: https://msizi007.pythonanywhere.com/jobs
 
 #### How to install
 
