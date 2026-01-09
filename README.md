@@ -7,7 +7,10 @@
 
 #### Backend
 
-- The app is hosted at https://json-server1-uini.onrender.com
+- Hosted on https://json-server1-uini.onrender.com
+- Endpoints
+    * /users
+    * /jobs
 
 #### How to install
 
