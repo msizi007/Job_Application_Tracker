@@ -5,7 +5,6 @@ import Image from "../components/Image";
 import LoginImage from "../assets/still.webp";
 import { useState } from "react";
 import axios from "axios";
-import type { LoginCredentials, User } from "../models/User";
 import { setUser } from "../utils/auth";
 import "./pages.css";
 import { Color } from "../context/_css";

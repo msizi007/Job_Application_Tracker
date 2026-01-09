@@ -11,7 +11,7 @@ import InputField from "../InputField/InputField";
 import { useNavigate } from "react-router-dom";
 import styles from "./table.module.css";
 import { Color } from "../../context/_css";
-import { BiBriefcase, BiSolidBuildingHouse, BiMap } from "react-icons/bi"; // Added new icons
+import { BiSolidBuildingHouse, BiMap } from "react-icons/bi"; // Added new icons
 import DropdownList from "../DropdownList";
 import MultilineInput from "../MultilineInput";
 
