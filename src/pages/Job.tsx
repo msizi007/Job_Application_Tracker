@@ -14,9 +14,7 @@ export default function JobPage() {
   useEffect(() => {
     async function fetchJob() {
       try {
-        const response = await axios.get<Job>(
-          `${BASE_URL}/${id}`
-        );
+        const response = await axios.get<Job>(`${BASE_URL}/${id}`);
         setJob(response.data);
       } catch (error) {
         console.log(error);
@@ -27,18 +25,30 @@ export default function JobPage() {
 
   return (
     <div className="job-page">
-      <Navbar />
-      <div className="container">
+      <Navbar loggedIn={true} />
+      <div className="container mt-5">
         {job ? (
           <>
-            <div className="job-title">{job.title}</div>
-            <div className="job-company">{job.company}</div>
-            <div className="job-date-applied">
-            <div className="job-status">{job.status}</div>
-              Applied on: <span className="date">{job.dateApplied}</span>
+            <div className="display-4">{job.role}</div>
+            <p>
+              <span className="h5">{job.company}</span>
+              <span className="text-muted">, {job.location}</span>
+            </p>
+            <div className="text-muted">
+              {job.status == "Applied" && (
+                <div className="badge badge-info p-2 my-1">{job.status}</div>
+              )}
+              {job.status == "Interviewed" && (
+                <div className="badge badge-warning p-2 my-1">{job.status}</div>
+              )}
+              {job.status == "Rejected" && (
+                <div className="badge badge-danger p-2 my-1">{job.status}</div>
+              )}
+              <p>
+                Applied on:{" "}
+                <span className="date">{job.dateApplied as string}</span>
+              </p>
             </div>
-            <div className="job-location">{job.location}</div>
-            <div className="job-role">Role: {job.role}</div>
           </>
         ) : (
           <div>Loading...</div>

@@ -6,7 +6,7 @@ import notFoundImg from "../assets/404.jpg";
 export default function NotFound404() {
   return (
     <div style={_404}>
-      <Navbar />
+      <Navbar loggedIn={false} />
       <div style={_body}>
         <Image src={notFoundImg} alt="404 Error Image" size={50} />
       </div>
