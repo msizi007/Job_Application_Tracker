@@ -1,31 +1,30 @@
-import type { Dispatch, SetStateAction } from "react";
-import type { IconType } from "react-icons";
-import styles from "./inputfield.module.css";
+import React from "react";
 
 interface Props {
-  for?: string;
+  value: string | number;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   type: string;
-  placeholder: string;
-  field: string;
-  setField: Dispatch<SetStateAction<string>>;
-  icon?: IconType;
+  placeholder?: string;
+  required?: boolean;
+  icon?: React.ReactNode;
 }
 
 export default function InputField(props: Props) {
+  const { value, onChange, type, placeholder, required } = props;
+
+  // 1. FIX: Generate a unique ID
+  const inputId = React.useId();
+
   return (
-    <div className={styles.inputGroup}>
-      {props.icon ? (
-        <div className={styles.inputIcon}>
-          <props.icon />
-        </div>
-      ) : null}
+    <div className="form-floating mb-3 w-100">
       <input
-        type={props.type}
-        className={styles.input}
-        placeholder={props.placeholder}
-        value={props.field}
-        onChange={(e) => props.setField(e.target.value)}
-        required
+        type={type}
+        className="form-control w-100"
+        id={inputId}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        required={required}
       />
     </div>
   );

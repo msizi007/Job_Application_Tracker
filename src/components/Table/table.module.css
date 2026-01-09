@@ -1,10 +1,86 @@
+/* --- TABLE STYLING --- */
+
 .table {
-  margin-top: 2rem;
   width: 100%;
-  border-collapse: collapse;
-  border: 1px solid lightgray;
-  border-collapse: collapse;
+  border-collapse: separate; /* Allows for border-radius on rows/cells */
+  border-spacing: 0;
+  margin-top: 20px;
+  font-size: 0.95rem;
+  background-color: #fff;
+  border-radius: 8px; /* Rounded corners for the whole table */
+  overflow: hidden; /* Ensures borders/shadows are contained */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  text-align: center;
 }
-.th {
-  border: 1px solid green;
+
+.thead {
+  background-color: var(--color-light-gray, #f8f8f8);
+  text-align: center;
+}
+
+.thCell {
+  text-align: left;
+  padding: 1rem 1.5rem;
+  font-weight: 600;
+  color: var(--color-text-dark, #333);
+  border-bottom: 2px solid var(--color-border-light, #eee);
+}
+
+.tableRow {
+  transition: background-color 0.2s ease;
+}
+
+.tableRow:hover {
+  background-color: var(--color-hover-light, #f0f8ff); /* Light hover effect */
+}
+
+.tableCell {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--color-border-light, #eee);
+  color: var(--color-text-medium, #444);
+}
+
+/* --- ACTIONS COLUMN --- */
+
+.actionsCell {
+  /* Aligning the icon buttons */
+  display: flex;
+  gap: 8px; /* Space between buttons */
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* Ensure full height for centering */
+  padding: 1rem 1.5rem;
+}
+
+/* --- MODAL STYLING --- */
+
+.modalContent {
+  padding: 20px;
+}
+
+.deleteWarning {
+  font-size: 1.1rem;
+  color: var(--color-text-medium, #555);
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.deleteWarning strong {
+  color: var(--color-indigo, #6366f1);
+  font-weight: 700;
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.modalForm {
+  padding: 20px 0;
+}
+
+.updateButtonContainer {
+  margin-top: 30px;
+  text-align: right;
 }

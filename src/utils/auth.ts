@@ -1,7 +1,9 @@
 import type { User } from "../models/User";
 
-export function getUser(): User {
-  return JSON.parse(localStorage.getItem("user") || "{}");
+export function getUser(): User | null {
+  const results = JSON.parse(localStorage.getItem("user") || "");
+  if (!results) return null;
+  return results;
 }
 
 export function setUser(user: User) {

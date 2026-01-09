@@ -42,3 +42,100 @@ body,
   width: 100%;
   height: 100%;
 }
+
+/* --- New Global Styles --- */
+
+.landing-page-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  /* Optional: Add a subtle background gradient for modern feel */
+  background: linear-gradient(180deg, #11111a 0%, #202030 100%);
+  color: #e0e0ff; /* Light text color */
+}
+
+/* --- Hero Section Layout --- */
+
+.hero-section {
+  flex-grow: 1; /* Pushes footer to the bottom */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 60px 8%; /* Increased padding */
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* --- Left Content --- */
+
+.hero-content {
+  max-width: 50%;
+  /* Optional: Fade-in effect on load */
+  animation: fadeIn 1s ease-out;
+}
+
+.title {
+  font-size: 3.5rem; /* Larger, more impactful title */
+  line-height: 1.1;
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+
+/* Optional: Neon Glow effect for the title (requires CSS) */
+.neon-glow {
+  text-shadow: 0 0 5px rgba(100, 100, 255, 0.7),
+    0 0 10px rgba(100, 100, 255, 0.5);
+}
+
+.sub-title {
+  font-size: 1.5rem;
+  color: #b0b0cc;
+  margin-bottom: 30px;
+}
+
+.features-list p {
+  font-size: 1rem;
+  margin-bottom: 8px;
+  color: #a0a0ff;
+}
+
+.cta-margin {
+  margin-top: 40px;
+}
+
+/* --- Right Image Container --- */
+
+.hero-image-container {
+  max-width: 450px;
+  /* Optional: Modern "floating" effect with shadow */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 0 10px rgba(70, 70, 100, 0.2);
+  border-radius: 12px;
+  overflow: hidden;
+  /* Optional: Subtle animation for depth */
+  transform: translateY(0);
+  transition: transform 0.3s ease-out;
+}
+
+/* --- Responsiveness (Crucial for modern design) --- */
+@media (max-width: 992px) {
+  .hero-section {
+    flex-direction: column; /* Stacks vertically on smaller screens */
+    padding: 40px 5%;
+  }
+  .hero-content,
+  .hero-image-container {
+    max-width: 100%;
+    text-align: center;
+  }
+  .title {
+    font-size: 2.5rem;
+  }
+  .hero-image-container {
+    order: -1; /* Puts image above text on mobile */
+    margin-bottom: 40px;
+  }
+  .features-list {
+    text-align: left; /* Keep list readable */
+    margin: 0 auto;
+  }
+}

@@ -9,31 +9,50 @@ import "./pages.css";
 
 export default function Landing() {
   const navigate = useNavigate();
+
   return (
-    <div className="landing-page">
+    // 🔑 Use a container for full page flex/grid setup
+    <div className="landing-page-container">
       <LandingNav />
-      <div className="body">
-        <div className="left">
-          <h1 className="title">Simplify Your Job Hunt</h1>
-          <p className="sub-title">
-            A smarter way to manage applications, follow-ups and career progress
+
+      {/* 🔑 Hero section for the main content */}
+      <div className="hero-section">
+        {/* === LEFT: Marketing Copy === */}
+        <div className="hero-content">
+          <h1 className="title neon-glow">Simplify Your Job Hunt</h1>
+          <p className="sub-title responsive-text">
+            A smarter way to manage applications, follow-ups, and accelerate
+            your career progress.
           </p>
-          <div className="btn-container">
+
+          <div className="features-list">
+            {/* Added short, benefit-driven list for immediate value */}
+            <p>✅ Track progress effortlessly</p>
+            <p>✅ Never miss a follow-up</p>
+            <p>✅ Visualize your career path</p>
+          </div>
+
+          <div className="btn-container cta-margin">
             <Button
-              width={50}
+              width={100} // Increased width for better CTA prominence
               color="white"
-              bg={Color.Indigo}
-              text="Get Started"
+              bg={Color.Indigo} // Assuming Color.Indigo is a bold blue/purple
+              text="Get Started Now"
               onclick={() => navigate("/signup")}
             />
           </div>
         </div>
-        <Image
-          src={LandingImage}
-          alt="catoon image of a relaxing buddy."
-          size={50}
-        />
+
+        {/* === RIGHT: Image/Visual === */}
+        <div className="hero-image-container">
+          <Image
+            src={LandingImage}
+            alt="Cartoon image of a relaxing person using a device, representing work-life balance."
+            size={100} // Let CSS handle the size
+          />
+        </div>
       </div>
+
       <Footer />
     </div>
   );

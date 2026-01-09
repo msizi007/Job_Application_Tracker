@@ -6,34 +6,48 @@ import Image from "../components/Image";
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { BsLockFill, BsPersonFill } from "react-icons/bs";
+import type { User } from "../models/User";
+import { isValidEmail } from "../utils/validator";
 
 export default function Register() {
   const [username, setUsername] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const navigate = useNavigate();
+  const BASE_URL = "https://json-server1-uini.onrender.com/users";
 
   function registerUser() {
-    console.log("register user...", username, password, confirmPassword);
+    const payload: User = {
+      username: username,
+      email: email,
+      password: password,
+    };
 
-    if (password === confirmPassword) {
-      const user = {
-        username: username,
-        password: password,
-      };
-      axios
-        .post("https://msizi007.pythonanywhere.com/users", user)
-        .then(() => {
-          navigate("/login");
-          alert("User registered successfully!");
-        })
-        .catch((error) => {
-          alert("Error registering user:" + error);
-        });
-    } else {
-      alert("Password does not match!");
+    if (!username || !email || !password || !confirmPassword) {
+      alert("Error: All fields are required!");
+      return;
     }
+
+    if (!isValidEmail(email)) {
+      alert("Error: Invalid email format!");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      alert("Error: Passwords do not match!");
+      return;
+    }
+
+    axios
+      .post(BASE_URL, payload)
+      .then(() => {
+        navigate("/login");
+        alert("User registered successfully!");
+      })
+      .catch((error) => {
+        alert("Error registering user:" + error);
+      });
   }
 
   return (
@@ -42,27 +56,27 @@ export default function Register() {
         <form action="" style={_form}>
           <InputField
             type="text"
-            for="username"
-            placeholder="Username..."
-            field={username}
-            setField={setUsername}
-            icon={BsPersonFill}
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <InputField
+            type="email"
+            placeholder="Email Address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <InputField
             type="password"
-            for="password"
-            placeholder="Password..."
-            field={password}
-            setField={setPassword}
-            icon={BsLockFill}
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <InputField
             type="password"
-            for="confirm-password"
             placeholder="Confirm Password..."
-            field={confirmPassword}
-            setField={setConfirmPassword}
-            icon={BsLockFill}
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
           />
           <p style={_p}>
             Already have an account? <Link to="/login">Log in</Link> instead.

@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar/Navbar";
 import Footer from "../components/Footer/Footer";
 
+const BASE_URL = "https://json-server1-uini.onrender.com/jobs";
+
 export default function JobPage() {
   const { id } = useParams();
   const [job, setJob] = useState<Job | null>(null);
@@ -13,7 +15,7 @@ export default function JobPage() {
     async function fetchJob() {
       try {
         const response = await axios.get<Job>(
-          `https://msizi007.pythonanywhere.com/jobs/${id}`
+          `${BASE_URL}/${id}`
         );
         setJob(response.data);
       } catch (error) {

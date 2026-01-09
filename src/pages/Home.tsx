@@ -5,143 +5,229 @@ import Table from "../components/Table/Table";
 import { Color } from "../context/_css";
 import Modal from "../components/Modal";
 import InputField from "../components/InputField/InputField";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import type { Job } from "../models/Job";
+import type { Job, Status } from "../models/Job";
 import type { User } from "../models/User";
 import { getUser } from "../utils/auth";
+import DropdownList from "../components/DropdownList";
+import MultilineInput from "../components/MultilineInput";
+import { sortJobs } from "../utils/filter";
+import Searchbar from "../components/Searchbar/Searchbar";
+import { useNavigate } from "react-router-dom";
 
-interface HomeProps {
-  user: User;
-  setUser: React.Dispatch<React.SetStateAction<User>>;
-  jobs: Job[];
-  setJobs: React.Dispatch<React.SetStateAction<Job[]>>;
-  modalVisible: boolean;
-  setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
-}
+const BASE_URL = "https://json-server1-uini.onrender.com";
 
-export default function Home(props: HomeProps) {
-  function onAddJob() {
-    props.setModalVisible(true);
-  }
+export type FilterBy = "Role" | "Company" | "Location" | "Date Applied";
+export type Order = "Ascending" | "Descending";
 
-  const [jobTitle, setJobTitle] = useState("");
+export default function Home() {
+  // STATES
   const [company, setCompany] = useState("");
   const [role, setRole] = useState("");
   const [location, setLocation] = useState("");
   const [jobs, setJobs] = useState<Job[] | []>([]);
+  const [status, setStatus] = useState<Status>("Applied");
+  const [description, setDescription] = useState("");
   const [filteredJobs, setFilteredJobs] = useState<Job[]>([]);
+  const [filterBy, setFilterBy] = useState<FilterBy>("Role");
+  const [orderBy, setOrderBy] = useState<Order>("Ascending");
+  const lastFetchedJobsRef = useRef<Job[]>([]);
+  const hasFetchedRef = useRef(false);
+  const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [showModal, setShowModal] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+
+  // EFFECTS
+  useEffect(() => {
+    const user = getUser() as User;
+    setUser(user);
+  }, []);
 
   useEffect(() => {
-    axios.get(`https://msizi007.pythonanywhere.com/jobs`).then((res) => {
-      if (getUser() !== props.user) {
-        props.setUser(getUser());
-      }
-      if (res.data != jobs) {
-        setJobs(res.data);
-        setFilteredJobs(
-          res.data.filter((job: Job) => {
-            return job.userId === props.user!.id;
-          })
-        );
+    if (jobs.length > 0) {
+      const sorted = sortJobs(jobs, filterBy, orderBy);
+      setFilteredJobs(sorted);
+    }
+  }, [jobs, filterBy, orderBy]);
+
+  useEffect(() => {
+    const user = getUser() as User;
+
+    if (user == null) {
+      navigate("/login");
+      return;
+    }
+
+    axios.get(`${BASE_URL}/jobs`).then((res) => {
+      const fetchedData: Job[] = res.data;
+      const currentUserJobs = fetchedData.filter((job: Job) => {
+        return job.userId === user.id;
+      });
+      const isContentDifferent =
+        currentUserJobs.length !== lastFetchedJobsRef.current.length;
+
+      if (!hasFetchedRef.current || isContentDifferent) {
+        setJobs(currentUserJobs);
+        lastFetchedJobsRef.current = currentUserJobs;
+        hasFetchedRef.current = true;
       }
     });
-  }, [jobs, props.user, props]);
+  }, []);
+
+  // FUNCTIONS
+  function onAddJob() {
+    setShowModal(true);
+  }
 
   function addJob() {
-    console.log(props.user);
-    props.setModalVisible(false);
+    setShowModal(false);
 
-    const job = {
-      title: jobTitle,
-      company: company,
-      location: location,
-      role: role,
-      status: "Applied",
+    const job: Job = {
+      company,
+      role,
+      location,
+      description,
+      status,
       dateApplied: new Date().toISOString().split("T")[0],
-      userId: props.user!.id,
+      userId: user!.id!,
     };
 
-    if (jobTitle === "" || company === "" || role === "" || location === "") {
+    if (
+      description === "" ||
+      company === "" ||
+      role === "" ||
+      location === ""
+    ) {
       alert("Please fill in all fields.");
       return;
     }
 
     axios
-      .post(`https://msizi007.pythonanywhere.com/jobs`, job)
+      .post(`${BASE_URL}/jobs`, job)
       .then(() => {
         alert("Job added sucessfully.");
+        window.location.reload();
       })
       .catch((error) => {
         alert("Cannot add job." + error);
       });
+    setDescription("");
+    setCompany("");
+    setLocation("");
+    setRole("");
+  }
+
+  useEffect(() => {
+    search();
+  }, [searchTerm]);
+
+  function search() {
+    const filtered = jobs.filter((job: Job) => {
+      return (
+        job.role.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        job.company.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        job.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        job.status.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    });
+    setFilteredJobs(filtered);
   }
 
   return (
-    <div className="home-page">
-      <Navbar />
-      <div className="body">
-        <div className="row">
-          <h2>All Jobs</h2>
-          <Button
-            color="white"
-            bg={Color.Mantis}
-            text="Add Job"
-            onclick={onAddJob}
-          />
-        </div>
-        <hr />
-        <Table
-          head={["Title", "Company", "Location", "Actions"]}
-          data={filteredJobs}
-        />
-      </div>
-      {props.modalVisible && (
-        <Modal
-          title="Add New Job"
-          content={
+    <>
+      <div className="home-page">
+        <Navbar loggedIn={true} />
+        <div className="body container mt-5">
+          <div className="row">
             <div>
-              <InputField
-                for="jobTitle"
-                type="text"
-                placeholder="Job Title"
-                field={jobTitle}
-                setField={setJobTitle}
+              <DropdownList
+                options={["Role", "Company", "Location", "Date Applied"]}
+                onChange={(e) => setFilterBy(e.target.value as FilterBy)}
+                className="mx-2"
               />
-              <InputField
-                type="text"
-                placeholder="Company"
-                field={company}
-                setField={setCompany}
-              />
-              <InputField
-                type="text"
-                placeholder="Location"
-                field={location}
-                setField={setLocation}
-              />
-              <InputField
-                type="text"
-                placeholder="Role"
-                field={role}
-                setField={setRole}
-              />
-              <Button
-                color="white"
-                bg={Color.Mantis}
-                text="Submit"
-                onclick={(e) => {
-                  e!.preventDefault();
-                  addJob();
-                }}
+              <DropdownList
+                options={["Ascending", "Descending"]}
+                onChange={(e) => setOrderBy(e.target.value as Order)}
               />
             </div>
-          }
-          onClose={() => props.setModalVisible(false)}
-        />
-      )}
+            <Searchbar
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
 
-      <Footer />
-    </div>
+            <Button
+              color="white"
+              bg={Color.Mantis}
+              text="Add Job"
+              onclick={onAddJob}
+            />
+          </div>
+          <hr />
+          <Table
+            head={[
+              "Role",
+              "Company",
+              "Location",
+              "Status",
+              "Date Applied",
+              "Actions",
+            ]}
+            data={filteredJobs}
+          />
+        </div>
+        {showModal && (
+          <Modal
+            title="Add New Job"
+            content={
+              <div>
+                <InputField
+                  type="text"
+                  placeholder="Role"
+                  value={role}
+                  onChange={(e) => setRole(e.target.value)}
+                />
+                <MultilineInput
+                  placeholder="Description"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                />
+                <InputField
+                  type="text"
+                  placeholder="Company"
+                  value={company}
+                  onChange={(e) => setCompany(e.target.value)}
+                />
+                <InputField
+                  type="text"
+                  placeholder="Location"
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
+                />
+
+                <DropdownList
+                  options={["Applied", "Interviewed", "Rejected"]}
+                  onChange={(e) => setStatus(e.target.value as Status)}
+                  className="w-100"
+                />
+                <Button
+                  color="white"
+                  bg={Color.Mantis}
+                  text="Submit"
+                  onclick={(e) => {
+                    e!.preventDefault();
+                    addJob();
+                  }}
+                />
+              </div>
+            }
+            onClose={() => setShowModal(false)}
+          />
+        )}
+
+        <Footer />
+      </div>
+    </>
   );
 }

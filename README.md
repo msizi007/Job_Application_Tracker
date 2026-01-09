@@ -7,9 +7,7 @@
 
 #### Backend
 
-- The app is hosted at https://msizi007.pythonanywhere.com for more info. visit pythonanywhere.com
-- Users: https://msizi007.pythonanywhere.com/users
-- Jobs: https://msizi007.pythonanywhere.com/jobs
+- The app is hosted at https://json-server1-uini.onrender.com
 
 #### How to install
 
@@ -38,7 +36,6 @@ npm run dev
 #### Tech Stack
 
 - FrontEnd: React(ts)
-- Backend API: Python Flask
 - DB: Json
 
 ###### Author

@@ -9,16 +9,13 @@ interface Props {
 export default function IconButton(props: Props) {
   return (
     <button
+      className="btn btn-lg"
       style={{
-        border: "1px solid lightgray",
-        margin: ".5rem",
-        padding: ".8rem",
-        borderRadius: ".5rem",
         backgroundColor: props.bg,
       }}
       onClick={props.onclick}
     >
-      <props.icon size={15} color="white" />
+      <props.icon size={20} color="white" />
     </button>
   );
 }

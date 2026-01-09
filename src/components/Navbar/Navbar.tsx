@@ -1,15 +1,28 @@
-import Avatar from "../Avatar";
-import Searchbar from "../Searchbar/Searchbar";
+import { useNavigate } from "react-router-dom";
+import { removeUser } from "../../utils/auth";
 import styles from "./navbar.module.css";
 
-export default function Navbar() {
+interface Props {
+  loggedIn: boolean;
+}
+
+export default function Navbar(props: Props) {
+  const navigate = useNavigate();
+  function logout() {
+    removeUser();
+    navigate("/login");
+  }
   return (
-    <div className={styles.navbar}>
+    // The class remains the same
+    <nav className={styles.navbar}>
       <h1 className={styles.title}>Job Tracker</h1>
       <div className={styles.right}>
-        <Searchbar />
-        <Avatar />
+        {props.loggedIn && (
+          <button className="btn btn-outline-danger" onClick={logout}>
+            Logout
+          </button>
+        )}
       </div>
-    </div>
+    </nav>
   );
 }

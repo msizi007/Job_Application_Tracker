@@ -12,7 +12,7 @@ export default function Modal(props: Props) {
       <div style={_btn_close} onClick={() => props.onClose(false)}>
         &times;
       </div>
-      <h2>{props.title}</h2>
+      <h4>{props.title}</h4>
       {props.content}
     </div>
   );
